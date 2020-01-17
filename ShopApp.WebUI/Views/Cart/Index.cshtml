@@ -1,0 +1,153 @@
+﻿@model CartModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section CartScripts
+{
+    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        var sliderup = document.getElementById("up");
+        var outputup = document.getElementById("upspan");
+        outputup.innerHTML = sliderup.value;
+
+        sliderup.oninput = function () {
+            outputup.innerHTML = this.value;
+        }
+
+        var sliderdown = document.getElementById("down");
+        var outputdown = document.getElementById("downspan");
+        outputdown.innerHTML = sliderdown.value;
+
+        sliderdown.oninput = function () {
+            outputdown.innerHTML = this.value;
+        }
+    </script>
+}
+
+<div class="container-fluid gradiant text-white">
+    <div class="row">
+        @if (Model.CartItems.Count() > 0)
+        {
+            <div class="col-lg-8 p-3 mt-5">
+                <div class="row mt-5">
+                    <div style="color:darkorange" class="col-3 text-center"><h3><b>Ürünler</b></h3></div>
+                    <div style="color:darkorange" class="col-5 text-center"><h3><b>Adet</b></h3></div>
+                    <div style="color:darkorange" class="col-2 text-right"><h3><b>Fiyat</b></h3></div>
+                    <div style="color:darkorange" class="col-2"></div>
+                </div>
+                <hr style="background-color:white;" />
+                @foreach (var item in Model.CartItems)
+                {<div class="row mt-3">
+                        <div class="col-3 text-center">
+                            <div><img style="width:100px" src="~/img/@item.ImageUrl" class="img-sm"></div>
+                            <a href="#" class="text-white"><strong>@item.Name</strong></a>
+                        </div>
+                        <div class="col-5 text-center mt-4">
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                    <div class="col-lg-6">
+                                        <input class="btn btn-light text-dark btn-block border border-dark" style="text-align:center; border-radius:5px; font-weight:bold; width:100%;" type="number" name="quantity" value="@item.Quantity" max="100" min="1" step="1" />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button type="submit" class="btn btn-success btn-block">
+                                            <i class="fas fa-redo fa-lg"></i><strong>Güncelle</strong>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-2 text-right mt-3">
+                            <div class="price-wrap">
+                                <h2>@((item.Quantity * item.Price).ToString("c"))</h2>
+                                <h5><span>@item.Price.ToString("c") x @item.Quantity</span></h5>
+                            </div>
+                        </div>
+                        <div class="col-2 text-right">
+                            <form asp-controller="Cart" asp-action="DeleteFromCart" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times fa-fw"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr style="background-color:white;" />
+                }
+            </div>
+        }
+        else
+        {
+            <div style="margin-top:150px;" class="alert alert-warning text-center col-12">
+                <h2>SEPET BOŞ!</h2>
+            </div>
+        }
+        <div class="col-lg-4 p-3 mt-5">
+            @if (Model.CartItems.Count() > 0)
+            {
+                <div class="row mt-5">
+                    <div style="color:darkorange" class="col-12 text-center"><h3><strong>Sipariş Özeti</strong></h3></div>
+                </div>
+                <hr style="background-color:white;" />
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>Net fiyat</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <h4><strong>@Model.TotalPrice().ToString("c")</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>KDV</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <h4><strong>@(((double)Model.TotalPrice() * 0.18).ToString("c"))</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <h3>Toplam</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <h4><strong>@(((double)Model.TotalPrice() * 1.18).ToString("c"))</strong></h4>
+                            </div>
+                        </div>
+                        <hr style="background-color:white;" />
+                    </div>
+                    <div class="col-lg-12 bg-light p-1 text-center">
+                        <i class="fa fa-cc-visa fa-2x" style="color:navy;"></i>
+                        <i class="fa fa-cc-amex fa-2x" style="color:blue;"></i>
+                        <i class="fa fa-cc-mastercard fa-2x" style="color:red;"></i>
+                        <i class="fa fa-cc-discover fa-2x" style="color:orange;"></i>
+                    </div>
+                    <div class="col-lg-12 text-center mt-3">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <a href="/checkout" class="btn btn-success btn-block btn-lg">Alışverişi Tamamla <i class="fa fa-arrow-circle-right fa-lg"></i></a>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-2"></div>
+                            <div class="col-8 mt-3 mb-3">
+                                <a href="/" class="btn btn-primary btn-block btn-lg"><i class="fa fa-arrow-circle-left fa-lg"></i>Anasayfa</a>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                        <div class="alert alert-success">
+                            <i class="icon text-success fa fa-truck"></i> Kargo bedava! Tahmini teslim süresi 1 hafta.
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

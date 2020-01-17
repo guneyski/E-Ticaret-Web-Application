@@ -1,0 +1,18 @@
+﻿@model ProductListModel
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fas fa-angle-double-left fa-lg"></i></a>
+    @await Component.InvokeAsync("CategoryList")
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 mt-5">
+            <div class="row mt-5">
+                @foreach (var product in Model.Products)
+                {
+                    <partial name="_product" for="@product" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

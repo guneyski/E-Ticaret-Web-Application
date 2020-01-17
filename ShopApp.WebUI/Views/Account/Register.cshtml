@@ -1,0 +1,86 @@
+﻿@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+@section Scripts
+{
+    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<div class="row text-white">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6 mt-5">
+        <h1 style="color:darkorange;" class="mt-5">Hesap Oluştur</h1>
+        <h5 class="mt-1" style="text-align:right;">Üye misin?<a style="color:antiquewhite" asp-controller="Account" asp-action="Login" class="nav-link active"><i class="fa fa-fw fa-user fa-lg"></i> Giriş Yap</a></h5>
+        <hr class="hr-signup"/>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="text-danger">@ViewBag.ErrorMessage</div>
+        }
+    <form asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <label asp-for="FullName"><b>Adınız</b></label>
+                <input asp-for="FullName" value="@Model.FullName" class="input-text-signup" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <label asp-for="Username"><b>Kullanıcı Adı</b></label>
+                <input asp-for="Username" value="@Model.Username" class="input-text-signup" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <label asp-for="Email"><b>Email</b></label>
+                <input asp-for="Email" value="@Model.Email" class="input-text-signup" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <label asp-for="Password"><b>Parola</b></label>
+                <input asp-for="Password" value="@Model.Password" class="input-text-signup" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <label asp-for="RePassword"><b>Parola Tekrar</b></label>
+                <input asp-for="RePassword" value="@Model.RePassword" class="input-text-signup" />
+                <span asp-validation-for="RePassword" class="text-danger"></span>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <button type="submit" class="btn btn-success btn-block"><b>Beni Kaydet</b></button>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+    </form>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

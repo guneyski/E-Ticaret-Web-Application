@@ -1,0 +1,165 @@
+﻿@model ProductModel
+@{
+    ViewData["Title"] = "EditProduct";
+    var counter = 0;
+}
+
+@section Scripts
+{
+    <script src="/modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/modules/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor");
+    </script>
+    <script>
+        function previewFile() {
+            var preview = document.querySelector('img');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        }
+    </script>
+}
+
+<div class="container-fluid text-white gradiant font-weight-bold">
+    <div class="row gradiant">
+        <div style="position:fixed; z-index:1;" class="col-lg-6 mt-5">
+            <div class="row mt-5">
+                <div style="color:darkorange" class="col-12 text-center"><h1><strong>Admin Ürün Güncelleme</strong></h1></div>
+            </div>
+            <hr style="background-color:white" />
+            <form asp-controller="Admin" asp-action="EditProduct" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="form-group row">
+                            <label asp-for="ImageUrl" class="col-lg-3 col-form-label">Ürün Görseli</label>
+                            <div class="col-lg-9">
+                                <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+                                <img style="width:100px" src="~/img/@Model.ImageUrl" />
+                                <input type="file" name="file" value="" onchange="previewFile()" />
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <div class="form-group row">
+                            <label asp-for="Name" class="col-lg-3 col-form-label">Ürün Adı</label>
+                            <div class="col-lg-9">
+                                <input asp-for="Name" value="@Model.Name" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="Description" class="col-lg-3 col-form-label">Ürün Açıklaması</label>
+                            <div class="col-lg-9">
+                                <textarea id="editor" asp-for="Description" class="form-control">
+                        @Model.Description
+                    </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="Price" class="col-lg-3 col-form-label">Ürün Fiyatı</label>
+                            <div class="col-lg-9">
+                                <input asp-for="Price" value="@((double)Model.Price)" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-9">
+                                <button type="submit" class="btn btn-success btn-block btn-lg">Ürünü Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3>Kategoriye Ekle</h3>
+                        <hr style="background-color:white" />
+                        @foreach (var item in (List<Category>)ViewBag.Categories)
+                        {
+                            var isChecked = "";
+                            if (Model.SelectedCategories.Any(i => i.Id == item.Id))
+                            {
+                                isChecked = "checked";
+                                <input type="hidden" name="SelectedCategories[@counter].Id" value="@item.Id" />
+                                <input type="hidden" name="SelectedCategories[@counter].Name" value="@item.Name" />
+
+                                counter++;
+                            }
+                            else
+                            {
+                                isChecked = "";
+                            }
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"
+                                       name="categoryIds"
+                                       value="@item.Id"
+                                       class="custom-control-input"
+                                       id="category@(item.Id)"
+                                       @isChecked />
+                                <label class="custom-control-label" for="category@(item.Id)">@item.Name</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6 mt-5">
+            <div class="row mt-5">
+                <div style="color:darkorange" class="col-12 text-center"><h1><strong>Admin Ürünleri</strong></h1></div>
+            </div>
+            <hr style="background-color:white" />
+            @if (Model.Products.Count > 0)
+            {
+                <table class="table table-bordered text-white">
+                    <thead>
+                        <tr>
+                            <td>DB Id</td>
+                            <td>RESİM</td>
+                            <td>AD</td>
+                            <td>FİYAT</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>
+                                    <img src="~/img/@item.ImageUrl" width="80" />
+                                </td>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <a class="btn btn-primary btn-md btn-block" href="/admin/products/@item.Id">Güncelle</a>
+                                    @*<form action="/admin/deleteproduct" method="post">
+                                            <input type="hidden" name="productId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-danger btn-md btn-block mt-2">Sil</button>
+                                        </form>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <h4>No Products</h4>
+                </div>
+            }
+        </div>
+    </div>
+</div>

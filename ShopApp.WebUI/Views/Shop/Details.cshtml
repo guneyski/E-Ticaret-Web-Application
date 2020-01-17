@@ -1,0 +1,41 @@
+﻿@model ProductDetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="row">
+    <div style="z-index:2">
+        <div style="width:0" id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn btn-block" onclick="closeNav()"><i class="fas fa-angle-double-left fa-lg"></i></a>
+            @await Component.InvokeAsync("CategoryList")
+        </div>
+    </div>
+
+    <div style="z-index:1" class="col-xl-3 col-lg-3 leftbar">
+        @await Component.InvokeAsync("CategoryList")
+    </div>
+
+    <div class="col-xl-3 col-lg-3"></div>
+
+    <span class="hiddenmenu fixed-top" onclick="openNav()">&#9776; MENU</span>
+    <div class="col-xl-9 col-lg-9 mt-5">
+        <div class="col-xl-5 col-lg-7 col-md-7 col-sm-7 mt-3">
+            <div class="cards">
+                <img src="~/img/@Model.Product.ImageUrl" alt="@Model.Product.Name" style="width:100%">
+                <h1>@Model.Product.Name</h1>
+                <p class="price"><i class="fas fa-lira-sign"></i> @Model.Product.Price</p>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@Model.Product.Id" />
+                    <div class="row">
+                        <div class="col-4"><h3 class="mt-1 mr-10">Adet:</h3></div>
+                        <div class="col-4 mb-3"><input type="number" name="quantity" class="form-control" value="1" min="1" step="1" /></div>
+                        <div class="col-4 mb-3">
+                            <button type="submit" class="btn btn-block product-button">
+                                <i class="fas fa-shopping-cart fa-lg"></i>Sepete Ekle
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

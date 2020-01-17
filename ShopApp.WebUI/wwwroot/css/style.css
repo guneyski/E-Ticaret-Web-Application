@@ -1,0 +1,144 @@
+﻿#main {
+    transition: margin-left .5s;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.bg-image {
+    background-image: url('../img/unnamed (3).jpg');
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%,rgba(0,0,0,0.5) 100%), url('../img/unnamed (3).jpg');
+    background-attachment: fixed;
+}
+
+.gradiant {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%,rgba(0,0,0,0.5) 100%);
+}
+
+.product-cart {
+    border-radius: 5px;
+    color: white;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%,rgba(0,0,0,0.25) 100%);
+}
+
+    .product-cart:hover {
+        border-radius: 15px;
+        border: 2px solid darkorange;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%,rgba(0,0,0,0.5) 100%);
+    }
+
+
+#li-item a {
+    color: white;
+}
+
+    #li-item a:hover {
+        color: darkorange;
+    }
+
+.li-item-nav {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.sidepanel {
+    display: block;
+    padding-top: 150px;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    left: 0;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%,rgba(0,0,0,0.5) 100%);
+    overflow-x: hidden;
+    transition: 0.5s;
+    border-radius: 5px;
+}
+
+.sidepanel-List {
+    display: block;
+    padding-top: 150px;
+    width: 350px;
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    left: 0;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%,rgba(0,0,0,0.5) 100%);
+    overflow-x: hidden;
+    transition: 0.5s;
+    border-radius: 5px;
+}
+
+    .sidepanel .closebtn, .sidepanel-List .closebtn {
+        color: white;
+        position: absolute;
+        top: 100px;
+        right: 25px;
+        font-size: 36px;
+    }
+
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+
+    .openbtn:hover {
+        background-color: #444;
+    }
+
+.fixed-item {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%,rgba(0,0,0,0.5) 100%);
+    position: fixed;
+    z-index: 2;
+}
+
+.category-item {
+    text-decoration: none;
+    font-size: 30px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+    .category-item:hover {
+        color: #f1f1f1;
+    }
+
+.category-item-active {
+    color: #f1f1f1;
+}
+
+.active-links {
+    font-size: 18px;
+    padding: 10px;
+    background-color: black;
+    color: darkorange;
+}
+
+.ul-links {
+    float: left;
+}
+
+.li-links {
+    display: inline;
+}
+
+.a-links {
+    text-decoration: none;
+    font-size: 22px;
+    padding: 10px 20px;
+    background-color: white;
+    color: darkorange;
+    margin-right: 2px;
+}
+
+    .a-links:hover {
+        text-decoration: none;
+        color: darkorange;
+        background-color: grey;
+    }

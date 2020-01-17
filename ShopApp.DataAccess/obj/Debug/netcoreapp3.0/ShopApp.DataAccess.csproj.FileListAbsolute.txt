@@ -1,0 +1,4 @@
+C:\Users\burak\source\repos\ShopApp\ShopApp.DataAccess\bin\Debug\netcoreapp3.0\ShopApp.Entities.dll
+C:\Users\burak\source\repos\ShopApp\ShopApp.DataAccess\obj\Debug\netcoreapp3.0\ShopApp.DataAccess.csprojAssemblyReference.cache
+C:\Users\burak\source\repos\ShopApp\ShopApp.DataAccess\obj\Debug\netcoreapp3.0\ShopApp.DataAccess.AssemblyInfoInputs.cache
+C:\Users\burak\source\repos\ShopApp\ShopApp.DataAccess\obj\Debug\netcoreapp3.0\ShopApp.DataAccess.AssemblyInfo.cs

@@ -1,0 +1,79 @@
+﻿@model CategoryModel
+@{
+    ViewData["Title"] = "EditCategory";
+}
+
+<div class="container-fluid gradiant text-white font-weight-bold">
+    <div class="row gradiant">
+        <div class="col-lg-4 mt-5">
+            <div class="row mt-5">
+                <div style="color:darkorange" class="col-12 text-center"><h1><strong>Admin Kategori Ekleme</strong></h1></div>
+            </div>
+            <hr style="background-color:white" />
+            <form asp-controller="Admin" asp-action="EditCategory" method="post">
+                <input type="hidden" name="categoryId" value="@Model.Id" />
+                <div class="form-group row">
+                    <label asp-for="Name" class="col-lg-3 col-form-label">Kategori Adı:</label>
+                    <div class="col-lg-9">
+                        <input asp-for="Name" value="@Model.Name" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <button type="submit" class="btn btn-primary btn-block">Kategori Adı Güncelle</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-8 mt-5">
+            <div class="row mt-5">
+                <div style="color:darkorange" class="col-12 text-center"><h1><strong>Admin Kategori Güncelleme</strong></h1></div>
+            </div>
+            <hr style="background-color:white" />
+            @if (Model.Products.Count > 0)
+            {
+                <table class="table table-bordered text-white">
+                    <thead>
+                        <tr>
+                            <td>SIRA</td>
+                            <td>RESİM</td>
+                            <td>AD</td>
+                            <td>FİYAT</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>
+                                    <img src="~/img/@item.ImageUrl" width="80" />
+                                </td>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <a class="btn btn-primary btn-md btn-block" href="/admin/products/@item.Id">Güncelle</a>
+                                    <form action="/admin/deletefromcategory" method="post">
+                                        <input type="hidden" name="productId" value="@item.Id" />
+                                        <input type="hidden" name="categoryId" value="@Model.Id" />
+                                        <button type="submit" class="btn btn-danger btn-md btn-block mt-2">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <h4>Ürün Yok</h4>
+                    <a class="btn btn-primary btn-md btn-block" href="/admin/productlist/">Ürün Eklemek İçin Tıkla</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@model ProductListModel
+<div id="mySidepanelList" class="sidepanel-List">
+    @await Component.InvokeAsync("CategoryList")
+</div>
+<div style="margin-left:565px;" class="container">
+    <div class="row">
+        <div style="margin-top:80px;" class="col-xl-12 col-lg-12">
+            <div class="row">
+                @foreach (var product in Model.Products)
+                {
+                    <partial name="_product" for="@product" />
+                }
+            </div>
+            <div page-model="@Model.PageInfo"></div>
+        </div>
+    </div>
+</div>

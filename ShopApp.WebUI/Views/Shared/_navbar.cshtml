@@ -1,0 +1,58 @@
+﻿<nav style="width:100%;" id="li-item" class="navbar navbar-expand-lg li-item-nav fixed-item">
+    <a style="color:darkorange" class="navbar-brand" href="/"><h1>stickersepeti.com</h1></a>
+    <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <h4>☰ Menu</h4>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto mr-auto">
+            <li id="li-item" class="nav-item">
+                <a class="nav-link" href="/"><h4><i class="fa fa-fw fa-home fa-lg"></i>Anasayfa</h4></a>
+            </li>
+            <li id="li-item" class="nav-item">
+                <a class="nav-link" href="#" onclick="openNav()"><h4>☰ Kategoriler</h4></a>
+            </li>
+        </ul>
+        @if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+        {<ul class="navbar-nav ml-auto mr-auto li-item">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Cart" asp-action="Index"><h4><i class="fas fa-shopping-cart fa-lg"></i>Sepet</h4></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mr-auto li-item">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Cart" asp-action="GetOrders"><h4><i class="fas fa-shopping-basket fa-lg"></i>Siparişler</h4></a>
+                </li>
+            </ul>
+        }
+        @if (User.IsInRole("admin"))
+        {<ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Admin" asp-action="ProductList"><h4>Admin Ürünleri</h4></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Admin" asp-action="CategoryList"><h4>Admin Kategorileri</h4></a>
+                </li>
+            </ul>
+        }
+        <ul class="navbar-nav ml-auto">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Manage"><i class="far fa-id-card fa-lg"></i> @User.Identity.Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Logout"><i class="fas fa-user-alt-slash fa-lg"></i> Çıkış Yap</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Login"><i class="fa fa-fw fa-user fa-lg"></i> Giriş Yap</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Register"><i class="fas fa-user-plus fa-lg"></i> Üye Ol</a>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>

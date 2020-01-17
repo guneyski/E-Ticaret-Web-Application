@@ -1,0 +1,35 @@
+﻿@model Product
+<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-3 mt-3 product-cart shadow">
+    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+        <input type="hidden" name="productId" value="@Model.Id" />
+        <input type="hidden" name="quantity" class="form-control" value="1" min="1" step="1" />
+        <div>
+            <img class="img" src="~/img/@Model.ImageUrl" alt="@Model.Name" style="width:100%">
+        </div>
+        <h5 style="text-align:center"><strong>@Model.Name</strong></h5>
+        <div class="row">
+            <div class="col-12"><p class="text-center"><strong><i class="fas fa-lira-sign"></i>@Model.Price</strong></p></div>
+        </div>
+        <div class="row">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="col-12">
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-warning btn-block btn-lg"><i class="fas fa-shopping-cart fa-lg"></i>Lütfen Giriş Yapınız</a>
+                </div>
+            }
+            else if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+            {
+                <div class="col-12">
+                    <button style="color:white;" type="submit" class="btn btn-secondary btn-block btn-lg shadow rounded"><i style="color:darkorange;" class="fas fa-shopping-cart fa-lg"></i> Sepete Ekle</button>
+                </div>
+            }
+
+            @if (User.IsInRole("admin"))
+            {
+                <div class="col-12">
+                    <a href="/" class="btn btn-danger btn-block btn-lg"><i class="fa fa-fw fa-user fa-lg"></i>Admin</a>
+                </div>
+            }
+        </div>
+    </form>
+</div>

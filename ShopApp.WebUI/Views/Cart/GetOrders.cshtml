@@ -1,0 +1,72 @@
+﻿@model List<OrderListModel>
+
+@{
+    ViewData["Title"] = "GetOrders";
+}
+
+<div class="container-fluid">
+
+    @foreach (var order in Model)
+    {
+        <div class="row">
+            <div class="col-12 mt-5">
+                <table class="table mt-5 text-white">
+                    <thead>
+                        <tr>
+                            <th>Sipariş Numarası: @order.OrderId</th>
+                            <th>Ürün Adı</th>
+                            <th>Fiyat</th>
+                            <th>Adet</th>
+                            <th>Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var orderItem in order.OrderItems)
+                        {
+                            <tr>
+                                <td>
+                                    <img style="width:50px;" src="~/img/@orderItem.ImageUrl" />
+                                </td>
+                                <td>
+                                    @orderItem.Name
+                                </td>
+                                <td>
+                                    @orderItem.Price.ToString("c")
+                                </td>
+                                <td>
+                                    x @orderItem.Quantity
+                                </td>
+                                <td>
+                                    @order.TotalPrice().ToString("c")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div style="background-color:#dee2e6; color:black" class="col-11 ml-auto mr-auto font-weight-bold mb-3">
+                <div class="row p-3 border border-dark">
+                    <div class="col-3">Adres:</div>
+                    <div class="col-9">@order.Address</div>
+                </div>
+                <div class="row p-3 border border-dark">
+                    <div class="col-3">Telefon</div>
+                    <div class="col-9">@order.Phone</div>
+                </div>
+                <div class="row p-3 border border-dark">
+                    <div class="col-3">E-Posta</div>
+                    <div class="col-9">@order.Email</div>
+                </div>
+                <div class="row p-3 border border-dark">
+                    <div class="col-3">Ödeme Tipi</div>
+                    <div class="col-9">@order.PaymentTypes</div>
+                </div>
+                <div class="row p-3 border border-dark">
+                    <div class="col-3">Sipariş Durumu</div>
+                    <div class="col-9">@order.OrderState</div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
+</div>
