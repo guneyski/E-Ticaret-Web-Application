@@ -1,4 +1,4 @@
-# projeA
+# ASP.NET Core ile E-Ticaret Web Application
 Kocaeli Üniversitesi Bilişim Sistemleri Mühendisliği Proje A
 
 Kullanılan teknolojiler:
